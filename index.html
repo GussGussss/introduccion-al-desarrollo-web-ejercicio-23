@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cálculo de IMC para Mujer</title>
+</head>
+<body>
+  <h1>Cálculo del Índice de Masa Corporal (IMC)</h1>
+  <h2>Formulario para mujer</h2>
+
+  <form>
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre"><br><br>
+
+    <label for="peso">Peso en kilogramos:</label>
+    <input type="number" id="peso" step="any"><br><br>
+
+    <label for="estatura">Estatura en metros:</label>
+    <input type="number" id="estatura" step="any"><br><br>
+
+    <button type="button" onclick="calcularIMC()">Calcular IMC</button>
+  </form>
+
+  <h2>Resultado:</h2>
+  <p id="resultado"></p>
+
+  <script>
+    function calcularIMC() {
+      let nombre = document.getElementById("nombre").value;
+      let peso = parseFloat(document.getElementById("peso").value);
+      let estatura = parseFloat(document.getElementById("estatura").value);
+
+      if (nombre === "" || isNaN(peso) || isNaN(estatura) || estatura <= 0) {
+        document.getElementById("resultado").innerHTML =
+          "Por favor, completa todos los campos correctamente.";
+        return;
+      }
+
+      let imc = peso / (estatura * estatura);
+      let grado = "";
+
+      if (imc < 18.5) {
+        grado = "Bajo peso";
+      } else if (imc >= 18.5 && imc < 24.9) {
+        grado = "Peso normal";
+      } else if (imc >= 25 && imc < 29.9) {
+        grado = "Sobrepeso";
+      } else if (imc >= 30 && imc < 34.9) {
+        grado = "Obesidad grado I";
+      } else if (imc >= 35 && imc < 39.9) {
+        grado = "Obesidad grado II";
+      } else {
+        grado = "Obesidad grado III";
+      }
+
+      document.getElementById("resultado").innerHTML =
+        "Nombre: " + nombre + "<br>" +
+        "Tu IMC es: " + imc.toFixed(2) + "<br>" +
+        "Grado: " + grado;
+    }
+  </script>
+</body>
+</html>
